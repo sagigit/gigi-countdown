@@ -3,7 +3,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+
   <title>ספירה לאחור • טיסה עם מאמי❤️</title>
+
+  <!-- 🖼️  תצוגת מקדימה יפה בווטסאפ / פייסבוק -->
+  <meta property="og:title" content="✈️ ספירה לאחור לטיסה עם מאמי ❤️" />
+  <meta property="og:description" content="השעון רץ... כמה זמן נשאר עד ההמראה ללונדון?" />
+  <meta property="og:image" content="https://images.unsplash.com/photo-1505761671935-60b3a7427bad?q=80&w=1200&auto=format&fit=crop" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://sagi-magen.github.io/flight-countdown/" />
+  <meta name="theme-color" content="#14FFEC" />
+
   <style>
     :root{
       --glass-bg: rgba(0,0,0,.35);
@@ -14,45 +24,42 @@
     body {
       margin:0; min-height:100vh;
       font-family: system-ui, "Segoe UI", Heebo, Arial, sans-serif;
-      color: #fff;
-      display:flex; align-items:flex-start; justify-content:center;
+      color:#fff; display:flex; align-items:flex-start; justify-content:center;
       padding: min(6vh,60px) 12px 24px;
-      background-image: url('https://images.unsplash.com/photo-1505761671935-60b3a7427bad?q=80&w=1920&auto=format&fit=crop');
-      background-size: cover; background-position: center; background-attachment: fixed;
+      background-image:url('https://images.unsplash.com/photo-1505761671935-60b3a7427bad?q=80&w=1920&auto=format&fit=crop');
+      background-size:cover; background-position:center; background-attachment:fixed;
     }
     body::before {
       content:""; position:fixed; inset:0; z-index:0;
-      background: linear-gradient(180deg, rgba(0,0,0,.25), rgba(0,0,0,.65));
+      background:linear-gradient(180deg,rgba(0,0,0,.25),rgba(0,0,0,.65));
     }
-    .wrap {
-      position: relative; z-index:1; width:min(720px,100%);
-      text-align:center;
-      background: var(--glass-bg);
-      border: 1px solid var(--glass-border);
-      border-radius:16px; padding:20px 24px;
-      backdrop-filter: blur(6px);
-      box-shadow: 0 10px 30px rgba(0,0,0,.35);
+    .wrap{
+      position:relative; z-index:1; width:min(720px,100%);
+      text-align:center; background:var(--glass-bg);
+      border:1px solid var(--glass-border); border-radius:16px;
+      padding:20px 24px; backdrop-filter:blur(6px);
+      box-shadow:0 10px 30px rgba(0,0,0,.35);
     }
-    .eta { font-size:14px; margin-bottom:10px; font-weight:600; color:var(--hi); }
-    h1 { margin:0 0 6px; font-size:28px; font-weight:900; letter-spacing:.3px; }
-    .subtitle { font-size:18px; margin-bottom:14px; color:#fffa; font-weight:600; }
-    .grid {
-      display:grid; grid-template-columns: repeat(4,1fr); gap:12px;
-      direction:ltr; margin-top:6px;
+    .eta{font-size:14px;margin-bottom:10px;font-weight:600;color:var(--hi)}
+    h1{margin:0 0 6px;font-size:28px;font-weight:900;letter-spacing:.3px}
+    .subtitle{font-size:18px;margin-bottom:14px;color:#fffa;font-weight:600}
+    .grid{
+      display:grid;grid-template-columns:repeat(4,1fr);gap:12px;
+      direction:ltr;margin-top:6px;
     }
-    .unit {
-      background: rgba(255,255,255,.12);
-      border: 1px solid rgba(255,255,255,.18);
-      border-radius:12px; padding:14px 10px;
-      text-shadow: 0 1px 2px rgba(0,0,0,.5);
+    .unit{
+      background:rgba(255,255,255,.12);
+      border:1px solid rgba(255,255,255,.18);
+      border-radius:12px;padding:14px 10px;
+      text-shadow:0 1px 2px rgba(0,0,0,.5);
     }
-    .num { font-size:36px; font-weight:800; line-height:1; }
-    .label { font-size:12px; opacity:.9; margin-top:6px; }
-    #doneMsg { margin-top:12px; font-size:18px; font-weight:800; color:#8ef8ff; display:none }
-    @media (max-width:420px){
-      h1 { font-size:22px; }
-      .num { font-size:30px; }
-      .grid { gap:10px; }
+    .num{font-size:36px;font-weight:800;line-height:1}
+    .label{font-size:12px;opacity:.9;margin-top:6px}
+    #doneMsg{margin-top:12px;font-size:18px;font-weight:800;color:#8ef8ff;display:none}
+    @media(max-width:420px){
+      h1{font-size:22px}
+      .num{font-size:30px}
+      .grid{gap:10px}
     }
   </style>
 </head>
@@ -74,7 +81,6 @@
     // יעד: 10.12.2025 בשעה 05:20 (אזור זמן ישראל)
     const target = new Date('2025-12-10T05:20:00+02:00');
 
-    // הצגת זמן היעד
     document.getElementById('etaText').textContent =
       new Intl.DateTimeFormat('he-IL', {
         dateStyle:'full', timeStyle:'short', timeZone:'Asia/Jerusalem'
@@ -88,14 +94,12 @@
     };
     const done = document.getElementById('doneMsg');
 
-    function pad(n) { return String(n).padStart(2,'0'); }
-
-    function update() {
-      const now = new Date();
-      const diff = target - now;
-      if (diff <= 0) {
-        ids.days.textContent = ids.hours.textContent = ids.mins.textContent = ids.secs.textContent = '00';
-        done.style.display = 'block';
+    function pad(n){return String(n).padStart(2,'0');}
+    function update(){
+      const diff = target - new Date();
+      if(diff <= 0){
+        ids.days.textContent=ids.hours.textContent=ids.mins.textContent=ids.secs.textContent='00';
+        done.style.display='block';
         clearInterval(t);
         return;
       }
@@ -105,9 +109,7 @@
       ids.mins.textContent  = pad(Math.floor((s%3600)/60));
       ids.secs.textContent  = pad(s%60);
     }
-
-    const t = setInterval(update, 1000);
-    update();
+    const t=setInterval(update,1000);update();
   </script>
 </body>
 </html>
