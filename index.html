@@ -4,57 +4,55 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>ספירה לאחור • טיסה עם מאמי❤️</title>
-  <meta name="color-scheme" content="dark light">
   <style>
     :root{
       --glass-bg: rgba(0,0,0,.35);
       --glass-border: rgba(255,255,255,.18);
       --hi: #14FFEC;
     }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
+    * { box-sizing: border-box; }
+    body {
       margin:0; min-height:100vh;
       font-family: system-ui, "Segoe UI", Heebo, Arial, sans-serif;
-      color:#fff; display:flex; align-items:flex-start; justify-content:center;
+      color: #fff;
+      display:flex; align-items:flex-start; justify-content:center;
       padding: min(6vh,60px) 12px 24px;
-      /* רקע עובד בלי אינטרנט: SVG בדטה-URI עם אלמנט של ביג-בן סימבולי */
-      background-image:
-        radial-gradient(1200px 600px at 70% 10%, rgba(0,0,0,.55), transparent 60%),
-        url('data:image/svg+xml;utf8,<?xml version="1.0"?><svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080"><defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="%23090f1f"/><stop offset="1" stop-color="%2313254d"/></linearGradient></defs><rect width="100%" height="100%" fill="url(%23g)"/><g fill="%23ffffff22"><rect x="1420" y="200" width="40" height="520"/><rect x="1410" y="180" width="60" height="20"/><rect x="1428" y="140" width="24" height="40"/><circle cx="1440" cy="320" r="45" fill="%23ffd16633"/><rect x="200" y="620" width="1400" height="8" fill="%23ffffff19"/></g></svg>');
-      background-size: cover; background-position: center;
+      background-image: url('https://images.unsplash.com/photo-1505761671935-60b3a7427bad?q=80&w=1920&auto=format&fit=crop');
+      background-size: cover; background-position: center; background-attachment: fixed;
     }
-    body::before{
+    body::before {
       content:""; position:fixed; inset:0; z-index:0;
-      background: linear-gradient(180deg, rgba(0,0,0,.20), rgba(0,0,0,.65));
+      background: linear-gradient(180deg, rgba(0,0,0,.25), rgba(0,0,0,.65));
     }
-    .wrap{
-      position:relative; z-index:1; width:min(720px,100%);
-      text-align:center; background:var(--glass-bg);
-      border:1px solid var(--glass-border); border-radius:16px;
-      padding:20px 24px; backdrop-filter: blur(6px);
+    .wrap {
+      position: relative; z-index:1; width:min(720px,100%);
+      text-align:center;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius:16px; padding:20px 24px;
+      backdrop-filter: blur(6px);
       box-shadow: 0 10px 30px rgba(0,0,0,.35);
     }
-    .eta{font-size:14px; margin-bottom:10px; font-weight:600; color:var(--hi)}
-    h1{margin:0 0 6px; font-size:28px; font-weight:900; letter-spacing:.3px}
-    .subtitle{font-size:18px; margin-bottom:14px; color:#fffa; font-weight:600}
-    .grid{
-      display:grid; grid-template-columns:repeat(4,1fr); gap:12px;
+    .eta { font-size:14px; margin-bottom:10px; font-weight:600; color:var(--hi); }
+    h1 { margin:0 0 6px; font-size:28px; font-weight:900; letter-spacing:.3px; }
+    .subtitle { font-size:18px; margin-bottom:14px; color:#fffa; font-weight:600; }
+    .grid {
+      display:grid; grid-template-columns: repeat(4,1fr); gap:12px;
       direction:ltr; margin-top:6px;
     }
-    .unit{
+    .unit {
       background: rgba(255,255,255,.12);
       border: 1px solid rgba(255,255,255,.18);
       border-radius:12px; padding:14px 10px;
-      text-shadow:0 1px 2px rgba(0,0,0,.5);
+      text-shadow: 0 1px 2px rgba(0,0,0,.5);
     }
-    .num{font-size:36px; font-weight:800; line-height:1}
-    .label{font-size:12px; opacity:.9; margin-top:6px}
-    #doneMsg{margin-top:12px; font-size:18px; font-weight:800; color:#8ef8ff; display:none}
+    .num { font-size:36px; font-weight:800; line-height:1; }
+    .label { font-size:12px; opacity:.9; margin-top:6px; }
+    #doneMsg { margin-top:12px; font-size:18px; font-weight:800; color:#8ef8ff; display:none }
     @media (max-width:420px){
-      h1{font-size:22px}
-      .num{font-size:30px}
-      .grid{gap:10px}
+      h1 { font-size:22px; }
+      .num { font-size:30px; }
+      .grid { gap:10px; }
     }
   </style>
 </head>
@@ -63,7 +61,7 @@
     <div class="eta">זמן יעד: <span id="etaText">—</span></div>
     <h1>טיסה עם מאמי❤️</h1>
     <div class="subtitle">ספירה לאחור לטיסה ✈️</div>
-    <div class="grid" role="timer" aria-live="polite">
+    <div class="grid">
       <div class="unit"><div id="days" class="num">—</div><div class="label">ימים</div></div>
       <div class="unit"><div id="hours" class="num">—</div><div class="label">שעות</div></div>
       <div class="unit"><div id="mins" class="num">—</div><div class="label">דקות</div></div>
@@ -73,24 +71,14 @@
   </div>
 
   <script>
-    // ========= יעד: 10/12/2025 05:20 Asia/Jerusalem =========
-    // נגדיר יעד ב-UTC כדי להימנע מבעיות שעון קיץ: 05:20 ב-UTC+2 => 03:20 UTC
-    // שים לב: חודשים ב-Date.UTC הם 0-מבוסס (דצמבר = 11)
-    const targetUtcMs = Date.UTC(2025, 11, 10, 3, 20, 0);
-    const target = new Date(targetUtcMs);
+    // יעד: 10.12.2025 בשעה 05:20 (אזור זמן ישראל)
+    const target = new Date('2025-12-10T05:20:00+02:00');
 
-    // טקסט זמן יעד לפי Asia/Jerusalem
-    const etaEl = document.getElementById('etaText');
-    try {
-      etaEl.textContent = new Intl.DateTimeFormat('he-IL', {
-        dateStyle: 'full',
-        timeStyle: 'short',
-        timeZone: 'Asia/Jerusalem'
+    // הצגת זמן היעד
+    document.getElementById('etaText').textContent =
+      new Intl.DateTimeFormat('he-IL', {
+        dateStyle:'full', timeStyle:'short', timeZone:'Asia/Jerusalem'
       }).format(target);
-    } catch {
-      // דפדפנים ישנים
-      etaEl.textContent = target.toLocaleString('he-IL');
-    }
 
     const ids = {
       days: document.getElementById('days'),
@@ -100,33 +88,26 @@
     };
     const done = document.getElementById('doneMsg');
 
-    const pad = n => (n < 10 ? '0' + n : '' + n);
+    function pad(n) { return String(n).padStart(2,'0'); }
 
-    function render(diffMs){
-      if (diffMs <= 0){
+    function update() {
+      const now = new Date();
+      const diff = target - now;
+      if (diff <= 0) {
         ids.days.textContent = ids.hours.textContent = ids.mins.textContent = ids.secs.textContent = '00';
         done.style.display = 'block';
-        return false; // לעצור
+        clearInterval(t);
+        return;
       }
-      const s = Math.floor(diffMs/1000);
+      const s = Math.floor(diff/1000);
       ids.days.textContent  = pad(Math.floor(s/86400));
       ids.hours.textContent = pad(Math.floor((s%86400)/3600));
       ids.mins.textContent  = pad(Math.floor((s%3600)/60));
       ids.secs.textContent  = pad(s%60);
-      return true;
     }
 
-    // עדכון מידי וגם כל שנייה
-    render(target.getTime() - Date.now());
-    const t = setInterval(() => {
-      const cont = render(target.getTime() - Date.now());
-      if (!cont) clearInterval(t);
-    }, 1000);
-
-    // טיפ קטן: אם העמוד היה ברקע זמן רב, נעדכן מיד כשחוזרים לפוקוס
-    document.addEventListener('visibilitychange', () => {
-      if (!document.hidden) render(target.getTime() - Date.now());
-    });
+    const t = setInterval(update, 1000);
+    update();
   </script>
 </body>
 </html>
